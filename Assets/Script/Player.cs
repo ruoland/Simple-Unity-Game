@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     public float moveSpeed = 8f;
     public float jumpFor = 400f;
     public GameObject shotObject = null;
-    public Transform shotPosition = null;
-
+    public Transform shotPositionL = null;
+    public Transform shotPositionR = null;
+    private bool isRight = false;
     private bool jumping = false;
     
     // Start is called before the first frame update
@@ -36,11 +37,13 @@ public class Player : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = true;
             Move(h);
+            
         }
 
+        isRight = !GetComponent<SpriteRenderer>().flipX;
 
 
-        if (jumping == false)
+        if (!jumping)
         { 
             bool jump = Input.GetButtonDown("Jump");
 
@@ -52,8 +55,6 @@ public class Player : MonoBehaviour
                 jumpForce.y = jumpFor;
                 GetComponent<Rigidbody2D>().AddForce(jumpForce);
                 jumping = true;
-           
-
             }
 
         }
@@ -61,9 +62,25 @@ public class Player : MonoBehaviour
         //ÃÑ½î±â
         bool shot = Input.GetButtonDown("Fire1");
         if (shot)
-        {            
-            GameObject.Instantiate(shotObject, shotPosition.position, shotPosition.rotation);
+        {
+            GetComponent<Animator>().SetTrigger("isShot");
+            if (isRight) 
+            {
+                GameObject bullet = GameObject.Instantiate(shotObject, shotPositionR.position, shotPositionR.rotation);
+                bullet.GetComponent<Shot>().Instance(isRight);
+
+            }
+            else
+            {
+                GameObject bullet = GameObject.Instantiate(shotObject, shotPositionL.position, shotPositionL.rotation);
+                bullet.GetComponent<Shot>().Instance(isRight);
+
+            }
+            
+
         }
+
+
     }
 
     private void Move(float h)
@@ -80,4 +97,5 @@ public class Player : MonoBehaviour
         GetComponent<Animator>().SetBool("isJump", false);
 
     }
+    
 }
