@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
-
+    public int attackDamage = 40;
     public float moveSpeed = 10f;
     public float destroySecond = 3;
     private float leftValue = 1f;
@@ -40,5 +41,16 @@ public class Shot : MonoBehaviour
     private void Destroy()
     {
         GameObject.Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy") 
+        {
+            Destroy();
+        }
+        
+
+
     }
 }
