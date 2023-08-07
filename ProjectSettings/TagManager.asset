@@ -5,18 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shot
-  - Enemy
+  - Enemies
+  - Platform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Platfrom
+  - Enemies
+  - Shot
+  - PlayerHit
   - 
   - 
   - 
