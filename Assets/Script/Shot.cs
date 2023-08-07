@@ -1,17 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
-    public int attackDamage = 40;
-    public float moveSpeed = 10f;
-    public float destroySecond = 3;
+    public int damage = 40;
+    public float moveSpeed = 1.5f;
     private float leftValue = 1f;
+    public float destroySecond = 3f;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
@@ -26,31 +25,30 @@ public class Shot : MonoBehaviour
 
     public void Instance(bool isRight)
     {
-        if (isRight)
+        if(isRight == true)
         {
             leftValue = 1f;
         }
         else
         {
-            leftValue = -1F;
+            leftValue = -1f;
         }
 
-        Invoke("Destroy", destroySecond);
+        Invoke("Delete", destroySecond);
     }
 
-    private void Destroy()
+    private void Delete()
     {
         GameObject.Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy") 
+        // 충돌한 것이 적이었다면
+        if(collision.gameObject.tag == "Enemies")
         {
-            Destroy();
+            // 총알을 삭제한다.
+            Delete();
         }
-        
-
-
     }
 }
