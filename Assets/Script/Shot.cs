@@ -50,5 +50,9 @@ public class Shot : MonoBehaviour
             // 총알을 삭제한다.
             Delete();
         }
+        if(collision.gameObject.tag == "Tilemap")
+        {
+            Delete();
+        }
     }
 }

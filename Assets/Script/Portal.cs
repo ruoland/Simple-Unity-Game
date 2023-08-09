@@ -17,14 +17,25 @@ public class Portal : MonoBehaviour
             UIManager.instance.ShowStageClear();
             // È¿°úÀ½
             GetComponent<AudioSource>().Play();
-            cam.GetComponent<Camera>().orthographicSize = 3;
+            cam.GetComponent<Camera>().orthographicSize = 5;
 
             Invoke("StageClear", intervalSecond);
         }
     }
     private void StageClear()
     {
-       
-        SceneManager.LoadScene(nextStage);
+        if (nextStage == "StageEnd")
+        {
+            StageEnd();
+        }
+        else
+        {
+            SceneManager.LoadScene(nextStage);
+        }
+    }
+
+    private void StageEnd()
+    {
+        Application.Quit();
     }
 }

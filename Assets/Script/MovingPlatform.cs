@@ -8,8 +8,7 @@ public class MovingPlatform : MonoBehaviour
     public List<Vector3> targetVectors = new List<Vector3>();
     private int currentTaget = 0;
     private bool isBackward = false;
-    public float waitSecond = 1F;
-
+    public float waitSecond = 0F;
     void Start()
     {
         StartCoroutine(CoMove());
@@ -24,47 +23,51 @@ public class MovingPlatform : MonoBehaviour
 
     public IEnumerator CoMove()
     {
-        // 현재 위치값을 변경된 값으로 치환한다.
-        transform.position = Vector3.MoveTowards(transform.position, targetVectors[currentTaget], moveSpeed * Time.deltaTime);
-
-        // 목표지점에 도달했을 때
-        Vector3 checkTarget = targetVectors[currentTaget];
-
-
-        //1 프레임 대기
-        yield return null;
-
-        if (Vector3.Distance(checkTarget, transform.position) < 0.1f)
+        while (true)
         {
-            //대기시간을 가진다
-            yield return new WaitForSeconds(waitSecond);
+            // 현재 위치값을 변경된 값으로 치환한다.
+            transform.position = Vector3.MoveTowards(transform.position, targetVectors[currentTaget], moveSpeed * Time.deltaTime);
 
-            if (isBackward == true)
+
+            // 목표지점에 도달했을 때
+            Vector3 checkTarget = targetVectors[currentTaget];
+
+
+            //1 프레임 대기
+            yield return null;
+
+            if (Vector3.Distance(checkTarget, transform.position) < 0.1f)
             {
-                // 처음목적지에 도달하면 앞으로 가기
-                if (currentTaget == 0)
+                //대기시간을 가진다
+                yield return new WaitForSeconds(waitSecond);
+
+                if (isBackward == true)
                 {
-                    isBackward = false;
-                    currentTaget = currentTaget + 1;
+                    // 처음목적지에 도달하면 앞으로 가기
+                    if (currentTaget == 0)
+                    {
+                        isBackward = false;
+                        currentTaget = currentTaget + 1;
+                    }
+                    // 처음목적지에 도달하지 않았다면 전 목적지로
+                    else
+                    {
+                        currentTaget = currentTaget - 1;
+                    }
                 }
-                // 처음목적지에 도달하지 않았다면 전 목적지로
                 else
                 {
-                    currentTaget = currentTaget - 1;
-                }
-            }
-            else
-            {
-                // 최종목적지에 도달하면 뒤로 돌아가기
-                if (currentTaget == (targetVectors.Count - 1))
-                {
-                    isBackward = true;
-                    currentTaget = currentTaget - 1;
-                }
-                // 최종목적지에 도달하지 않았다면 다음 목적지로
-                else
-                {
-                    currentTaget = currentTaget + 1;
+                    
+                    if (currentTaget == (targetVectors.Count - 1))
+                    {
+                        isBackward = true;
+                        currentTaget = currentTaget - 1;
+                    }
+                    // 최종목적지에 도달하지 않았다면 다음 목적지로
+                    else
+                    {
+                        currentTaget = currentTaget + 1;
+                    }
                 }
             }
         }

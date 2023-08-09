@@ -17,10 +17,10 @@ public class Cam : MonoBehaviour
     void LateUpdate()
     {
         Vector3 pos = new Vector3();
+
         pos.x = playerObj.transform.position.x;
         pos.y = playerObj.transform.position.y;
         pos.z = -10;
-
         transform.position = pos;
     }
 }
