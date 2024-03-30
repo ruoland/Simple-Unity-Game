@@ -17,7 +17,7 @@ public class Portal : MonoBehaviour
             UIManager.instance.ShowStageClear();
             // È¿°úÀ½
             GetComponent<AudioSource>().Play();
-            cam.GetComponent<Camera>().orthographicSize = 5;
+            cam.GetComponent<Camera>().orthographicSize = 10;
 
             Invoke("StageClear", intervalSecond);
         }

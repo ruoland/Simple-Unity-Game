@@ -2363,6 +2363,7 @@ MonoBehaviour:
   targetVectors:
   - {x: 4.1, y: 0, z: 0}
   - {x: 8, y: 0, z: 0}
+  isMove: 1
 --- !u!50 &57694809
 Rigidbody2D:
   serializedVersion: 4
@@ -2879,7 +2880,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
